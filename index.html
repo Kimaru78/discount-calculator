@@ -56,14 +56,11 @@
     <label for="monthlyPayment">Monthly Payment ($)</label>
     <input type="number" id="monthlyPayment" step="0.01">
 
-    <label for="maxDiscount">Max Discount Allowed ($)</label>
-    <input type="number" id="maxDiscount" step="0.01">
-
     <label for="financeMonths">Finance Months</label>
     <input type="number" id="financeMonths">
 
-    <label for="customDiscount">Custom Discount to Apply ($)</label>
-    <input type="number" id="customDiscount" step="0.01">
+    <label for="discount">Discount to Apply ($)</label>
+    <input type="number" id="discount" step="0.01" max="300">
 
     <button onclick="calculatePayment()">Calculate</button>
 
@@ -73,22 +70,21 @@
   <script>
     function calculatePayment() {
       const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
-      const maxDiscount = parseFloat(document.getElementById('maxDiscount').value);
       const financeMonths = parseInt(document.getElementById('financeMonths').value);
-      const customDiscount = parseFloat(document.getElementById('customDiscount').value);
+      const discount = parseFloat(document.getElementById('discount').value);
 
-      if (isNaN(monthlyPayment) || isNaN(maxDiscount) || isNaN(financeMonths) || isNaN(customDiscount)) {
+      if (isNaN(monthlyPayment) || isNaN(financeMonths) || isNaN(discount)) {
         alert("Please fill in all fields correctly.");
         return;
       }
 
-      if (customDiscount > maxDiscount) {
-        alert("Custom discount cannot exceed the maximum allowed discount.");
+      if (discount > 300) {
+        alert("Discount cannot exceed $300.");
         return;
       }
 
       const originalTotal = monthlyPayment * financeMonths;
-      const discountedTotal = originalTotal - customDiscount;
+      const discountedTotal = originalTotal - discount;
       const newMonthlyPayment = discountedTotal / financeMonths;
 
       document.getElementById('result').style.display = 'block';
@@ -96,7 +92,7 @@
         <strong>Results:</strong><br>
         Original Total: <strong>$${originalTotal.toFixed(2)}</strong><br>
         Final Monthly Payment: <strong>$${newMonthlyPayment.toFixed(2)}</strong><br>
-        Total Discount Applied: <strong>$${customDiscount.toFixed(2)}</strong>
+        Total Discount Applied: <strong>$${discount.toFixed(2)}</strong>
       `;
     }
   </script>
