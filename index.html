@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Payment Discount Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #e9f7ef;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Monthly Payment Discount Calculator</h2>
+    <label for="amountFinanced">Amount Financed ($)</label>
+    <input type="number" id="amountFinanced" step="0.01">
+
+    <label for="monthlyPayment">Monthly Payment ($)</label>
+    <input type="number" id="monthlyPayment" step="0.01">
+
+    <label for="maxDiscount">Max Discount Allowed ($)</label>
+    <input type="number" id="maxDiscount" step="0.01">
+
+    <label for="financeMonths">Finance Months</label>
+    <input type="number" id="financeMonths">
+
+    <label for="customDiscount">Custom Discount to Apply ($)</label>
+    <input type="number" id="customDiscount" step="0.01">
+
+    <button onclick="calculatePayment()">Calculate</button>
+
+    <div id="result" class="result" style="display: none;"></div>
+  </div>
+
+  <script>
+    function calculatePayment() {
+      const amountFinanced = parseFloat(document.getElementById('amountFinanced').value);
+      const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
+      const maxDiscount = parseFloat(document.getElementById('maxDiscount').value);
+      const financeMonths = parseInt(document.getElementById('financeMonths').value);
+      const customDiscount = parseFloat(document.getElementById('customDiscount').value);
+
+      if (isNaN(amountFinanced) || isNaN(monthlyPayment) || isNaN(maxDiscount) || isNaN(financeMonths) || isNaN(customDiscount)) {
+        alert("Please fill in all fields correctly.");
+        return;
+      }
+
+      if (customDiscount > maxDiscount) {
+        alert("Custom discount cannot exceed the maximum allowed discount.");
+        return;
+      }
+
+      const newAmount = amountFinanced - customDiscount;
+      const finalMonthlyPayment = newAmount / financeMonths;
+      const totalDiscountApplied = amountFinanced - (finalMonthlyPayment * financeMonths);
+
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('result').innerHTML = `
+        <strong>Results:</strong><br>
+        Final Monthly Payment: <strong>$${finalMonthlyPayment.toFixed(2)}</strong><br>
+        Total Discount Applied: <strong>$${totalDiscountApplied.toFixed(2)}</strong>
+      `;
+    }
+  </script>
+</body>
+</html>
