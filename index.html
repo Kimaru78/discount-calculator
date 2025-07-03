@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Monthly Payment Discount Calculator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background-color: #e0f0ff; /* soft blue */
+      background-color: #e0f0ff;
     }
     .container {
       max-width: 500px;
@@ -60,7 +60,7 @@
     <input type="number" id="financeMonths">
 
     <label for="discount">Discount to Apply ($)</label>
-    <input type="number" id="discount" step="0.01" max="400">
+    <input type="number" id="discount" step="0.01" max="400" placeholder="Max $400">
 
     <button onclick="calculatePayment()">Calculate</button>
 
@@ -71,16 +71,18 @@
     function calculatePayment() {
       const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
       const financeMonths = parseInt(document.getElementById('financeMonths').value);
-      const discount = parseFloat(document.getElementById('discount').value);
+      let discount = parseFloat(document.getElementById('discount').value);
 
       if (isNaN(monthlyPayment) || isNaN(financeMonths) || isNaN(discount)) {
         alert("Please fill in all fields correctly.");
         return;
       }
 
+      // Nueva validación estricta
       if (discount > 400) {
-        alert("Discount cannot exceed $400.");
-        return;
+        alert("Discount cannot exceed $400. It will be set to $400 automatically.");
+        discount = 400; // Ajustar automáticamente
+        document.getElementById('discount').value = 400;
       }
 
       const originalTotal = monthlyPayment * financeMonths;
@@ -95,7 +97,4 @@
         Total Discount Applied: <strong>$${discount.toFixed(2)}</strong>
       `;
     }
-  </script>
-</body>
-</html>
-
+  </script
