@@ -60,7 +60,7 @@
     <input type="number" id="financeMonths">
 
     <label for="discount">Discount to Apply ($)</label>
-    <input type="number" id="discount" step="0.01" max="300">
+    <input type="number" id="discount" step="0.01" max="400">
 
     <button onclick="calculatePayment()">Calculate</button>
 
@@ -78,8 +78,8 @@
         return;
       }
 
-      if (discount > 300) {
-        alert("Discount cannot exceed $300.");
+      if (discount > 400) {
+        alert("Discount cannot exceed $400.");
         return;
       }
 
@@ -98,3 +98,4 @@
   </script>
 </body>
 </html>
+
