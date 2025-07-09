@@ -79,7 +79,7 @@
       }
 
       // Validar límite
-      if (discount > 300) {
+      if (discount < 300) {
         alert("Discount cannot exceed $300. It has been adjusted automatically.");
         discount = 300;
         document.getElementById('discount').value = 300;
