@@ -60,7 +60,7 @@
     <input type="number" id="financeMonths">
 
     <label for="discount">Discount to Apply ($)</label>
-    <input type="number" id="discount" step="0.01" placeholder="Max $400">
+    <input type="number" id="discount" step="0.01" placeholder="Max $300">
 
     <button onclick="calculatePayment()">Calculate</button>
 
@@ -79,10 +79,10 @@
       }
 
       // Validar límite
-      if (discount > 400) {
-        alert("Discount cannot exceed $400. It has been adjusted automatically.");
-        discount = 400;
-        document.getElementById('discount').value = 400;
+      if (discount > 300) {
+        alert("Discount cannot exceed $300. It has been adjusted automatically.");
+        discount = 300;
+        document.getElementById('discount').value = 300;
       }
 
       if (discount < 0) {
